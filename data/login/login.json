@@ -1,0 +1,42 @@
+{
+  "userId" : "1",
+  "username": "sherlock221b",
+  "resource": {
+    "zhiliao": [
+      "/childBoss/addChild",
+      "/user/login",
+      "/childBoss/deleteChild"
+    ],
+    "spool": [null],
+    "foot": [null],
+    "mBridge": [
+      "/url/list",
+      "/systems/page",
+      "/launch",
+      "/update/protocol/request",
+      "/body/template",
+      "/update/client/request",
+      "/field/template",
+      "/body/template/add",
+      "/exeServer",
+      "/config/update",
+      "/system/update",
+      "/field/template/update",
+      "/systems",
+      "/addProtocol",
+      "/update/protocol/response",
+      "/update/server/response",
+      "/config",
+      "/field/template/add",
+      "/system/add"
+    ],
+    "notify": [null],
+    "boss": [
+      "/childBoss/addChild",
+      "/user/login",
+      "/childBoss/deleteChild"
+    ],
+    "sop": [null],
+    "ucm": ["/launch"]
+  }
+}

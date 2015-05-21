@@ -1,0 +1,21 @@
+{
+  "bizData": {
+    "childInfo": [],
+    "groupInfo": [],
+    "teacherInfo": [],
+    "userInfo": {
+      "isHeader": 0,
+      "isTeacher": 0,
+      "teach": "",
+      "userIcon": "http://cicadafile.qiniudn.com/1431681315612x1qu9Wpvdu.jpg",
+      "userId": 180400,
+      "userName": "lock221b",
+      "userType": 0,
+      "phone" : 18710908871
+    }
+  },
+  "msg": "请求成功",
+  "rtnCode": "0000000",
+  "ts": 1432214393977,
+  "uri": ""
+}
