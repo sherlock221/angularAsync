@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>angular 同步请求异步执行 另一种写法</title>
+    <script type="text/javascript" src="../angular/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("app", []);
+
+
+        app.controller("TestCtrl", function ($q, $http,$scope) {
+
+            $scope.result = [];
+
+
+            var getToken = function () {
+                var defer = $q.defer();
+                $http.get("../data/login/token.json", {})
+                        .success(function (res) {
+                            $scope.result.push("token获得成功");
+                            defer.resolve(res);
+                        })
+                        .error(function (err) {
+                            defer.reject(err);
+                        });
+                return defer.promise;
+            }
+
+            var login = function (res) {
+
+                var defer = $q.defer();
+                $http.get("../data/login/login.json", {params: {token:res.access_token}})
+                        .success(function (res) {
+                            $scope.result.push("login获得成功");
+                            defer.resolve(res);
+                        })
+                        .error(function (err) {
+                            defer.reject(err);
+                        });
+                return defer.promise;
+            }
+
+            var getUserInfo = function (res) {
+                var defer = $q.defer();
+                $http.get("../data/user/getUserInfo.json", {params:{userId:res.userId}})
+                        .success(function (res) {
+                            $scope.result.push("getUserInfo获得成功");
+                            defer.resolve(res);
+                        })
+                        .error(function (err) {
+                            defer.reject(err);
+                        });
+                return defer.promise;
+            }
+
+            var getCredit = function (res) {
+                var defer = $q.defer();
+                $http.get("../data/credit/credit.json", {params:{phone:res.bizData.userInfo.phone}})
+                        .success(function (res) {
+                            $scope.result.push("credit获得成功");
+                            defer.resolve(res);
+                        })
+                        .error(function (err) {
+                            defer.reject(err);
+                        });
+                return defer.promise;
+            }
+
+
+
+
+
+            getToken()
+                    .then(login)
+                    .then(getUserInfo)
+                    .then(getCredit)
+                    .then(function(res){
+                        console.log(res);
+                    },function(err){
+                        console.log(err);
+                    });
+
+
+        });
+
+
+    </script>
+</head>
+<body ng-app="app">
+
+
+<div ng-controller="TestCtrl">
+    <h1>另一种写法 以下业务流程:</h1>
+    <ul>
+        <li>根据用户名,密码拿到token</li>
+        <li>然后根据token 拿到此用户的ID</li>
+        <li>接着根据用户ID查询到用户详细信息</li>
+        <li>接着在根据用户手机号码查询到用户积分</li>
+    </ul>
+
+    <p>
+        业务要求 同步编写 异步执行一把
+    </p>
+
+
+    <h1>结果</h1>
+    <p ng-repeat="r in result">
+        {{r}}
+    </p>
+
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <h3>sherlock221b git</h3>
+</div>
+
+
+</body>
+</html>
