@@ -64,33 +64,35 @@
 
 
 
-
             getToken()
                     //拿token
                     .then(function (res) {
                         $scope.result.push("token获得成功");
+                        if(!res.access_token){
+                            return $q.reject("token 为空");
+                        }
                         return login(res.access_token);
-                    }, function (err) {
-                        return $q.reject(err);
                     })
                      //登录获得ID
                     .then(function(res){
                         $scope.result.push("login获得成功");
+
+                        if(res.userId == 0){
+                            return $q.reject("用户不存在!");
+                        }
+
                         return getUserInfo(res.userId);
-                    },function(err){
-                        return $q.reject(err);
                     })
                     //查用户信息
                     .then(function(res){
                         $scope.result.push("getUserInfo获得成功");
                         return getCredit(res.bizData.userInfo.phone);
-                    },function(err){
-                        return $q.reject(err);
                     })
                     //查积分
                     .then(function(res){
                         $scope.result.push("credit获得成功");
                     },function(err){
+                        console.log(err);
                         $scope.result.push(err);
                     })
 
